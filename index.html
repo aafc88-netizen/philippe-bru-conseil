@@ -45,8 +45,9 @@
   nav a:hover{color:var(--ink);}
   .cta-mini{
     background:var(--indigo);color:#fff;padding:10px 20px;border-radius:100px;
-    font-size:14px;font-weight:700;
+    font-size:14px;font-weight:700;cursor:pointer;
   }
+  .cta-mini:hover{background:var(--indigo-deep);}
   .lang-switch{
     display:flex;align-items:center;border:1px solid var(--line);border-radius:100px;
     padding:3px;gap:2px;
@@ -55,7 +56,9 @@
     border:none;background:transparent;cursor:pointer;
     font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;
     color:var(--ink-soft);padding:6px 13px;border-radius:100px;
+    transition:all 0.2s ease;
   }
+  .lang-switch button:hover{color:var(--ink);}
   .lang-switch button.active{background:var(--indigo);color:#fff;}
 
   /* HERO */
@@ -85,13 +88,16 @@
   }
   .btn-primary{
     background:var(--indigo);color:#fff;padding:11px 22px;border-radius:100px;
-    font-weight:700;font-size:13.5px;
+    font-weight:700;font-size:13.5px;cursor:pointer;display:inline-block;
+    transition:background 0.2s ease;
   }
   .btn-primary:hover{background:var(--indigo-deep);}
   .btn-ghost{
-    border:1.5px solid var(--line);padding:11px 22px;border-radius:100px;
-    font-weight:700;font-size:13.5px;
+    border:1.5px solid var(--indigo);padding:11px 22px;border-radius:100px;
+    font-weight:700;font-size:13.5px;cursor:pointer;display:inline-block;
+    transition:all 0.2s ease;
   }
+  .btn-ghost:hover{background:var(--indigo);color:#fff;}
 
   /* Trust strip */
   .trust{background:var(--bg-soft);padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
@@ -195,7 +201,7 @@
 
 <header>
   <div class="col">
-    <a class="logo-block" href="https://www.linkedin.com/in/philippebru/" target="_blank" rel="noopener">
+    <a class="logo-block" href="https://www.linkedin.com/in/philippebru/" target="_blank" rel="noopener noreferrer">
       <img class="avatar-mini" src="images/avatar.jpg" alt="Philippe Bru">
       <div class="logo">Philippe Bru</div>
     </a>
@@ -203,7 +209,7 @@
       <a href="#capacites" data-fr="Interventions" data-en="What I Offer">Interventions</a>
       <a href="#secteurs" data-fr="Secteurs" data-en="Sectors">Secteurs</a>
       <a href="#parcours" data-fr="Parcours" data-en="Background">Parcours</a>
-      <a href="#contact">Contact</a>
+      <a href="#contact" data-fr="Contact" data-en="Contact">Contact</a>
     </nav>
     <div class="lang-switch">
       <button type="button" class="active" data-lang="fr" onclick="setLang('fr')">FR</button>
@@ -284,9 +290,9 @@
       <div class="tab-card">
         <img src="images/sector4.jpg" alt="Secteur supplémentaire">
         <div class="body">
-          <h4>Secteur 4</h4>
-          <h3>Titre à compléter</h3>
-          <p>Description du secteur d'activité à ajouter.</p>
+          <h4 data-fr="Secteur 4" data-en="Sector 4">Secteur 4</h4>
+          <h3 data-fr="Titre à compléter" data-en="Title to Complete">Titre à compléter</h3>
+          <p data-fr="Description du secteur d'activité à ajouter." data-en="Description of the sector to be added.">Description du secteur d'activité à ajouter.</p>
         </div>
       </div>
     </div>
@@ -343,7 +349,7 @@
       </div>
       <div>
         <h4 data-fr="Réseaux" data-en="Networks">Réseaux</h4>
-        <a href="https://www.linkedin.com/in/philippebru/" target="_blank">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/philippebru/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
       <div>
         <h4 data-fr="Contact" data-en="Contact">Contact</h4>
@@ -371,7 +377,16 @@ function setLang(lang) {
       el.textContent = el.getAttribute('data-fr');
     }
   });
+  
+  // Save language preference
+  localStorage.setItem('preferredLang', lang);
 }
+
+// Initialize language on page load
+document.addEventListener('DOMContentLoaded', function() {
+  const savedLang = localStorage.getItem('preferredLang') || 'fr';
+  setLang(savedLang);
+});
 </script>
 </body>
 </html>
